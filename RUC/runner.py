@@ -5,12 +5,13 @@ import json
 from extraction import SeleniumRuc, RucApi
 from utils import create_driver, save_json
 from multiprocessing.dummy import Pool
-pool = Pool(25)
+import warnings as w
 
+w.filterwarnings('ignore')
 #  python .\runner.py --ruc .\test.json -m api
 #  python .\runner.py --ruc .\test.json -m scraper
 
-class TestPley(unittest.TestCase):
+class TestSeleniumRUC(unittest.TestCase):
     def setUp(self) -> None:
         self.driver = create_driver()
         self.driver.implicitly_wait(10)
@@ -38,10 +39,11 @@ def parse_args():
     return ns, sys.argv[:1] + args
 
 def get_api_ruc(list_ruc):
+    pool = Pool(25)
     list_data = []
     for ruc_api in pool.map(RucApi, list_ruc):
-        if ruc_api.data:
-            list_data.append(ruc_api.data)
+        if ruc_api.response:
+            list_data.append(ruc_api.response)
     save_json(list_data)
 
 if __name__ == '__main__':
@@ -50,6 +52,7 @@ if __name__ == '__main__':
 
     with open(args.ruc, mode='r', encoding='utf-8') as f:
         list_ruc = json.load(f)
+        list_ruc = list_ruc[0:5]
         
     if args.method=='scraper':
         unittest.main()

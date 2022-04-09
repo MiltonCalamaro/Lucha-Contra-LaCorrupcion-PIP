@@ -3,8 +3,8 @@ from config import PATH_OUTPUT, FILENAME_OUTPUT
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
-import yaml
 
+import yaml
 __config = None
 def config():
 	global __config
@@ -25,5 +25,3 @@ def create_driver():
 def save_json(data):
     with open(f"{PATH_OUTPUT}/{FILENAME_OUTPUT}", mode='w', encoding='utf-8') as f:
         json.dump(data, f)
-
-

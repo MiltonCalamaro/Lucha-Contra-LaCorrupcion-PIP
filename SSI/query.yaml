@@ -1,0 +1,45 @@
+query_search:
+  input_cui: '//*[@id="txt_cu"]'
+  search_cui: '//*[@placeholder="Cód. SNIP o CUI"]/following-sibling::*'
+  tipoinv: '//*[@id="td_tipinv"]'
+
+# --------------------DATOS GENERALES----------------------
+query_general:
+  cui: '//*[@id="td_cu"]'
+  snip: '//*[@id="td_snip"]'
+  fecha_registro: '//*[@id="td_fecreg"]'
+  nombre_inversion: '//*[@id="td_nominv"]'
+  estado: '//*[@id="td_estcu"]'
+  tipo_inversion: '//*[@id="td_tipinv"]'
+  programa_pmi: '//*[@id="td_indpmi"]'
+  # 1.- institucionalidad
+  opmi: '//*[@id="td_opmi"]'
+  uf: '//*[@id="td_uf"]'
+  uei: '//*[@id="td_uei"]'
+  # 2.- datos de la fase ejecucion
+  situacion: '//*[@id="td_situinv"]'
+  decreto_emergencia: '//*[@id="td_emergds"]'
+  cadena_funcional: '//*[@id="td_cadfun"]'
+  viabilidad_aprobacion: '//*[@id="td_fecviab"]'
+  costo_aprobado: '//*[@id="td_mtoviab"]'
+  beneficiarios: '//*[@id="td_benif"]'
+# 3.- datos de la fase ejecucion
+  expediente_tecnico: '//*[@id="td_indet"]'
+  reg_seguimiento: '//*[@id="td_indseg"]'
+  registro_cierre: '//*[@id="td_f9"]'
+  inicio_ejecucion: '//*[@id="fec_iniejec"]'
+  fin_ejecucion: '//*[@id="fec_finejec"]'
+  inversion_actualizado: '//*[@id="val_cta"]'
+  sol_controversias: '//*[@id="td_laudo"]'
+  carta_fianza: '//*[@id="td_carfza"]'
+  inv_total: '//*[@id="td_mtototal"]'
+
+# --------------------EJECUCION FINANCIERA----------------------
+query_efinanciera:
+  nav_item: '//*[@id="img_financ"]'
+  cost_inversion: '//*[@id="td_mtototal2"]'
+  devengado_acumulado: '//*[@id="val_efin"]' ## hasta el 2021
+  avance_financiero_acum: '//*[@id="por_avanacum"]'
+  saldo: '//*[@id="sdo_ejecacum"]'
+  fecha_primerdevengado: '//*[@id="pridev"]'
+  fecha_ultimodevengado: '//*[@id="ultdev"]'
