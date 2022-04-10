@@ -1,25 +1,36 @@
-### para interactuar con la pagina
+### para extraer los valores
+# https://www.seleniumeasy.com/selenium-tutorials/xpath-tutorial-for-selenium
 query_search:
   input: "//*[@id='txtRuc']"
   buscar: "//*[@id='btnAceptar']"
   regresar: '/html/body/div/div[2]/div/div[2]/button'
-### para extraer los valores
-# https://www.seleniumeasy.com/selenium-tutorials/xpath-tutorial-for-selenium
 query_info:
-  nro_ruc: "//*[contains(text(), 'Número de RUC')]/parent::*/following-sibling::*"
-  tipo_contribuyente: "//*[contains(text(), 'Tipo Contribuyente')]/parent::*/following-sibling::*"
-  nombre_comercial: "//*[contains(text(), 'Nombre Comercial')]/parent::*/following-sibling::*"
-  fecha_inscripcion: "//*[contains(text(), 'Fecha de Inscripción')]/parent::*/following-sibling::div[1]/p"
-  fecha_inicio: "//*[contains(text(), 'Fecha de Inicio de Actividades')]/parent::*/following-sibling::div[1]/p"
-  estado_contribuyente: "//*[contains(text(), 'Estado del Contribuyente')]/parent::*/following-sibling::*"
-  condicion_contribuyente: "//*[contains(text(), 'Condición del Contribuyente')]/parent::*/following-sibling::*"
-  domicilio_fiscal: "//*[contains(text(), 'Domicilio Fiscal')]/parent::*/following-sibling::*"
-  emision_comprobante: "//*[contains(text(), 'Sistema Emisión de Comprobante')]/parent::*/following-sibling::div[1]"
-  comercio_exterior: "//*[contains(text(), 'Actividad Comercio Exterior')]/parent::*/following-sibling::div[1]"
-  sistema_contabilidad: "//*[contains(text(), 'Sistema Contabilidiad')]/parent::*/following-sibling::*"
-  actividad_economica: "//*[contains(text(), 'Actividad(es) Económica(s)')]/parent::*/following-sibling::*" ## //tr plural
-  emision_electronica: "//*[contains(text(), 'Sistema de Emisión Electrónica')]/parent::*/following-sibling::*" ##//tr plural
-  emisor_electronico: "//*[contains(text(), 'Emisor electrónico desde')]/parent::*/following-sibling::*"
-  comprobantes_electronicos: "//*[contains(text(), 'Comprobantes Electrónicos')]/parent::*/following-sibling::*"
-  afiliado_ple: "//*[contains(text(), 'Afiliado al PLE desde')]/parent::*/following-sibling::*"
-  padrones: "//*[contains(text(), 'Padrones')]/parent::*/following-sibling::*"
+  check_ruc: ':-soup-contains("Número de RUC")'
+  fields:
+    nro_ruc: "//*[contains(text(), 'Número de RUC')]/parent::*/following-sibling::*"
+    tipo_contribuyente: "//*[contains(text(), 'Tipo Contribuyente')]/parent::*/following-sibling::*"
+    nombre_comercial: "//*[contains(text(), 'Nombre Comercial')]/parent::*/following-sibling::*"
+    fecha_inscripcion: "//*[contains(text(), 'Fecha de Inscripción')]/parent::*/following-sibling::div[1]/p"
+    fecha_inicio: "//*[contains(text(), 'Fecha de Inicio de Actividades')]/parent::*/following-sibling::div[1]/p"
+    estado_contribuyente: "//*[contains(text(), 'Estado del Contribuyente')]/parent::*/following-sibling::*"
+    condicion_contribuyente: "//*[contains(text(), 'Condición del Contribuyente')]/parent::*/following-sibling::*"
+    domicilio_fiscal: "//*[contains(text(), 'Domicilio Fiscal')]/parent::*/following-sibling::*"
+    emision_comprobante: "//*[contains(text(), 'Sistema Emisión de Comprobante')]/parent::*/following-sibling::div[1]"
+    comercio_exterior: "//*[contains(text(), 'Actividad Comercio Exterior')]/parent::*/following-sibling::div[1]"
+    sistema_contabilidad: "//*[contains(text(), 'Sistema Contabilidiad')]/parent::*/following-sibling::*"
+    actividad_economica: "//*[contains(text(), 'Actividad(es) Económica(s)')]/parent::*/following-sibling::*" ## //tr plural
+    emision_electronica: "//*[contains(text(), 'Sistema de Emisión Electrónica')]/parent::*/following-sibling::*" ##//tr plural
+    emisor_electronico: "//*[contains(text(), 'Emisor electrónico desde')]/parent::*/following-sibling::*"
+    comprobantes_electronicos: "//*[contains(text(), 'Comprobantes Electrónicos')]/parent::*/following-sibling::*"
+    afiliado_ple: "//*[contains(text(), 'Afiliado al PLE desde')]/parent::*/following-sibling::*"
+    padrones: "//*[contains(text(), 'Padrones')]/parent::*/following-sibling::*"
+query_rlegales:
+  buscar: "//*[contains(text(), 'Representante(s) Legal(es)')]"
+  table_tr: "tbody tr"
+  check_rl: "button:-soup-contains('Representante(s) Legal(es)')"
+  fields:
+    documento: 'td:nth-of-type(1)'
+    nro_documento: 'td:nth-of-type(2)'
+    nombre: 'td:nth-of-type(3)'
+    cargo: 'td:nth-of-type(4)'
+    fecha_desde: 'td:nth-of-type(5)'

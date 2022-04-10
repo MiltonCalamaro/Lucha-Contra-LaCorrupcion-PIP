@@ -14,7 +14,7 @@ w.filterwarnings('ignore')
 class TestSeleniumRUC(unittest.TestCase):
     def setUp(self) -> None:
         self.driver = create_driver()
-        self.driver.implicitly_wait(10)
+        self.driver.implicitly_wait(15)
         self.driver.maximize_window()
 
     def tearDown(self) -> None:
@@ -23,6 +23,7 @@ class TestSeleniumRUC(unittest.TestCase):
     def test_selenium_ruc(self):
         browser = self.driver
         selenium_ruc = SeleniumRuc(browser, list_ruc)
+        
         save_json(selenium_ruc.data)
 
 def parse_args():

@@ -4,6 +4,21 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 import yaml
+import logging
+import time
+
+def get_logger(name):
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s, %(levelname)s %(name)s %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S',
+        handlers=[
+        # logging.FileHandler(f"../log/{name}_{time.strftime('%Y%m%d')}.log"),
+        logging.StreamHandler()
+        ]
+)
+    logger = logging.getLogger(f":__{name}__:")
+    return logger
 
 __config = None
 def config():
@@ -25,5 +40,3 @@ def create_driver():
 def save_json(data):
     with open(f"{PATH_OUTPUT}/{FILENAME_OUTPUT}", mode='w', encoding='utf-8') as f:
         json.dump(data, f)
-
-
