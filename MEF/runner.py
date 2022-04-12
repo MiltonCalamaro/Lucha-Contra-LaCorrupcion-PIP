@@ -8,7 +8,7 @@ from config import REGION_LIST
 from extraction import SeleniumSSI, MEF_DATOSABIERTOS_API
 import warnings as w
 w.filterwarnings('ignore')
-# python .\runner.py --region "CALLAO" --driver chrome --pool 16
+
 class ExtractionMEF:
     def __init__(self, list_cui):
         self.data = []

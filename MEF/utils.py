@@ -2,8 +2,6 @@ import json
 import logging
 from config import PATH_OUTPUT, FILENAME_OUTPUT, EXECUTABLE_PATH_GECKODRIVER, EXECUTABLE_PATH_CHROMEDRIVER
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
 
 import yaml
 __config = None

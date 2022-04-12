@@ -1,9 +1,8 @@
 #  python .\runner.py --ruc .\test.json -m scraper
+#  python .\runner.py --region "CALLAO" --driver chrome --pool 16
 import subprocess
-from multiprocessing.dummy import Pool
-pool = Pool(25)
-
-list_test = range(5)
-def run(test):
-    subprocess.run(['python', 'runner.py', '--ruc', 'test.json', '--method', 'scraper'], cwd='RUC/')
-pool.map(run, list_test)
+subprocess.run(['python','runner.py','--region','CUSCO','--driver','firefox','--pool','32'], cwd = 'MEF')
+subprocess.run(['python','runner.py','--region','LAMBAYEQUE','--driver','firefox','--pool','32'], cwd = 'MEF')
+subprocess.run(['python','runner.py','--region','LORETO','--driver','firefox','--pool','32'], cwd = 'MEF')
+subprocess.run(['python','runner.py','--region','LIMA','--driver','firefox','--pool','32'], cwd = 'MEF')
+subprocess.run(['python','runner.py','--region','PIURA','--driver','firefox','--pool','32'], cwd = 'MEF')
