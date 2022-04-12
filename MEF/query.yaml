@@ -1,0 +1,44 @@
+query_search:
+  input_cui: '//*[@id="txt_cu"]'
+  search_cui: '//*[@placeholder="Cód. SNIP o CUI"]/following-sibling::*'
+  tipoinv: '//*[@id="td_tipinv"]'
+
+# --------------------DATOS GENERALES----------------------
+query_general:
+  CODIGO_UNICO: '//*[@id="td_cu"]'
+  CODIGO_SNIP: '//*[@id="td_snip"]'
+  FECHA_REGISTRO: '//*[@id="td_fecreg"]'
+  NOMBRE_INVERSION: '//*[@id="td_nominv"]'
+  ESTADO: '//*[@id="td_estcu"]'
+  TIPO_INVERSION: '//*[@id="td_tipinv"]'
+  REGISTRADO_PMI: '//*[@id="td_indpmi"]'
+  # 1.- institucionalidad
+  NOMBRE_OPMI: '//*[@id="td_opmi"]'
+  NOMBRE_UF: '//*[@id="td_uf"]'
+  NOMBRE_UEI: '//*[@id="td_uei"]'
+  # 2.- datos de la fase formulacion y evaluacion
+  SITUACION: '//*[@id="td_situinv"]'
+  DECRETO_URGENCIA: '//*[@id="td_emergds"]' ## no tiene la api
+  CADENA_FUNCIONAL: '//*[@id="td_cadfun"]' ## 'FUNCION','PROGRAMA','SUBPROGRAMA'
+  FECHA_VIABILIDAD: '//*[@id="td_fecviab"]'
+  MONTO_VIABLE: '//*[@id="td_mtoviab"]' ## 
+  BENEFICIARIOS: '//*[@id="td_benif"]' ## no tiene la api
+# 3.- datos de la fase ejecucion
+  EXPEDIENTE_TECNICO: '//*[@id="td_indet"]' 
+  SEGUIMIENTO_EJECUCION: '//*[@id="td_indseg"]' ## TIENE_F12B 
+  INFORME_CIERRE: '//*[@id="td_f9"]'  
+  FECHA_INICIO: '//*[@id="fec_iniejec"]'  ## no tiene la api
+  FECHA_FIN: '//*[@id="fec_finejec"]'  ## no tiene la api
+  MONTO_ACTUALIZADO: '//*[@id="val_cta"]'  ## COSTO_ACTUALIZADO
+  MONTO_CONTROVERSIA: '//*[@id="td_laudo"]'  ## no tiene la api, 
+  MONTO_FIANZA: '//*[@id="td_carfza"]'   ## no tiene la api
+  MONTO_TOTAL: '//*[@id="td_mtototal"]' ## no tiene la api
+# --------------------EJECUCION FINANCIERA----------------------
+query_efinanciera:
+  nav_item: '//*[@id="img_financ"]'
+  # MONTO_TOTAL: '//*[@id="td_mtototal2"]' 
+  MONTO_DEVENGADO_ACUMULADO: '//*[@id="val_efin"]' # DEVEN_ACUMUL_AÑO_ANT
+  # PORC_AVANCE_ACUMULADO: '//*[@id="por_avanacum"]' 
+  MONTO_SALDO_EJECUTAR: '//*[@id="sdo_ejecacum"]' # SALDO_EJECUTAR 
+  FECHA_PRIMERDEVENGADO: '//*[@id="pridev"]' # PRIMER_DEVENGADO
+  FECHA_ULTIMODEVENGADO: '//*[@id="ultdev"]' # ULTIMO_DEVENGADO

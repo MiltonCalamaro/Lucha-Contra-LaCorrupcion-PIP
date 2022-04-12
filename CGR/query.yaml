@@ -1,0 +1,4 @@
+inp_general: '//*[@id="inpGeneral"]'
+btn_buscar: '//*[@id="btnBuscar"]'
+element_exist: '//*[@id="tablaResultadosUltimosInformes"]/tbody'
+lbl_items: '//*[@id="lbltotalItems"]'
