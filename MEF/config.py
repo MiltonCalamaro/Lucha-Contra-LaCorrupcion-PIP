@@ -2,6 +2,11 @@ import os
 URL_SSI = 'https://ofi5.mef.gob.pe/ssi/ssi/Index'
 URL_MEF_API = 'https://datosabiertos.mef.gob.pe/api/3/action/datastore_search'
 URL_MEF = 'https://datosabiertos.mef.gob.pe'
+
+EXECUTABLE_PATH_GECKODRIVER='/usr/local/bin/geckodriver'
+EXECUTABLE_PATH_CHROMEDRIVER='D://chromedriver.exe'
+
+
 PATH_OUTPUT = 'results'
 FILENAME_OUTPUT = 'ssi_data.json'
 os.makedirs(PATH_OUTPUT, exist_ok=True)
@@ -19,8 +24,6 @@ fields = ['SECTOR','ENTIDAD','NIVEL',
 params = {'resource_id': '7d2995ab-826f-4da6-aafd-30e8e4f6a657',
           'limit': '1000',
           'fields': ",".join(fields)}
-
-# QUERY_PROYECTO = {
 # 'CUSCO':'{%22TIPO_INVERSION%22:%22PROYECTO%20DE%20INVERSION%22,%22DEPARTAMENTO%22:%22CUSCO%22}'}
 QUERY_PROYECTO ="%7B%22TIPO_INVERSION%22%3A%22PROYECTO+DE+INVERSION%22%2C%22DEPARTAMENTO%22%3A%22{region}%22%7D"
 

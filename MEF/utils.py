@@ -1,6 +1,6 @@
 import json
 import logging
-from config import PATH_OUTPUT, FILENAME_OUTPUT
+from config import PATH_OUTPUT, FILENAME_OUTPUT, EXECUTABLE_PATH_GECKODRIVER, EXECUTABLE_PATH_CHROMEDRIVER
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
@@ -14,13 +14,21 @@ def config():
 			__config=yaml.full_load(f)
 	return __config
 
-def create_driver():
-    option = webdriver.ChromeOptions()
+def config_option(option):
     option.add_argument("--headless")
-    option.add_argument("--host-resolver-rules=MAP www.google-analytics.com 127.0.0.1")
-    option.add_argument('user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36')
-    s = Service(ChromeDriverManager().install())
-    browser = webdriver.Chrome(service=s, options=option)
+    option.add_argument('--no-sandbox') 
+    option.add_argument('--disable-dev-shm-usage')
+    return option
+
+def create_driver(driver):
+    if driver=='firefox':
+        option = webdriver.FirefoxOptions()
+        option = config_option(option)
+        browser = webdriver.Firefox(options=option,  executable_path=EXECUTABLE_PATH_GECKODRIVER)
+    if driver=='chrome':
+        option = webdriver.ChromeOptions()
+        option = config_option(option)
+        browser = webdriver.Chrome(options=option, executable_path=EXECUTABLE_PATH_CHROMEDRIVER)
     return browser
 
 def save_json(data, filename=FILENAME_OUTPUT):
