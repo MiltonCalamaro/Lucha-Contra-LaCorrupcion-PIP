@@ -9,7 +9,7 @@ logger = get_logger('mef')
 
 config_yaml = config()
 
-class MEF_DATOSABIERTOS_API:
+class ApiDatosAbiertos:
 
     def __init__(self, region):
         '''

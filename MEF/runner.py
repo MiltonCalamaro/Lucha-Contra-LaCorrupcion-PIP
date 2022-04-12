@@ -3,9 +3,11 @@ import argparse
 import sys
 import json
 from multiprocessing.dummy import Pool
+import time
+import pandas as pd
 from utils import create_driver, save_json
 from config import REGION_LIST
-from extraction import SeleniumSSI, MEF_DATOSABIERTOS_API
+from extraction import SeleniumSSI, ApiDatosAbiertos
 import warnings as w
 w.filterwarnings('ignore')
 
@@ -33,8 +35,8 @@ def main():
     n_pool = args.pool
     pool = Pool(n_pool)
 
-    ### obtener detalle de proyectos de inversion
-    list_response = MEF_DATOSABIERTOS_API(args.region).list_response
+    ### obtener pip con la api de datos abiertos
+    list_response = ApiDatosAbiertos(args.region).list_response
     save_json(list_response, filename=f'datos_abiertos_{args.region}.json')
     
     ### handling list_cui_pool
@@ -44,11 +46,26 @@ def main():
     for i in range(0, len(list_cui), salto):
         list_cui_pool.append(list_cui[i:i+salto])
     
-    ### aplicar el miltiprocesamiento
+    ## aplicar el miltiprocesamiento para extraer info del ssi
     extraction_mef_data = []
     for extraction_mef in pool.map(ExtractionMEF, list_cui_pool):
         result = extraction_mef.data 
         extraction_mef_data.extend(result)
+
+    ### adjustar cui recolectados incorrectamente
+    time.sleep(10)
+    df_a = pd.DataFrame(list_response)
+    df_a['CODIGO_UNICO'] = df_a['CODIGO_UNICO'].astype('int64').astype('str')
+    cui_a = set(df_a['CODIGO_UNICO'])
+
+    df_b = pd.DataFrame(extraction_mef_data)
+    cui_b = set(df_b['CODIGO_UNICO'])
+
+    cui_faltante = cui_a.difference(cui_b)
+    extraction_mef = ExtractionMEF(cui_faltante)
+    result = extraction_mef.data
+    extraction_mef_data.extend(result)
+    ### save data del ssi
     save_json(extraction_mef_data, filename=f'ssi_{args.region}.json')
 
 if __name__ == '__main__':
