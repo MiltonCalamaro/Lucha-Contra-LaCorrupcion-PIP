@@ -1,4 +1,32 @@
-inp_general: '//*[@id="inpGeneral"]'
-btn_buscar: '//*[@id="btnBuscar"]'
-element_exist: '//*[@id="tablaResultadosUltimosInformes"]/tbody'
-lbl_items: '//*[@id="lbltotalItems"]'
+query_search:
+  filters:
+    penal: "//*[@id='F013-08']/parent::*"
+    # penal: "//*[@id='F001-0503']/parent::*"
+    # civil: "//*[@id='F001-0502']/parent::*"
+  # fecha_desde: "//*[@id='dtpFechaInicio']/parent::*"
+  # buscar: "//*[@id='btn-date']/parent::*"
+  combo_box: "//*[@id='listaCantidadRegistros']"
+  option_100: "//*[@id='listaCantidadRegistros']/option[4]"
+  siguiente: "//*[@id='Li_Siguiente']"
+  total_registros: "//*[@id='lbltotalItems']"
+
+
+query_table:
+  table: '#tablaResultadosUltimosInformes tbody tr'
+  fields:
+     region: 'td:nth-of-type(1)'
+     tipo_servicio: 'td:nth-of-type(2)'
+     nro_informe: 'td:nth-of-type(3)'
+     entidad: 'td:nth-of-type(4)'
+     titulo_informe: 'td:nth-of-type(5)'
+     evento: 'td:nth-of-type(6)'
+     operativo: 'td:nth-of-type(7)'
+     personas_responsables: 'td:nth-of-type(8)'
+     tipo_responsabilidad: 'td:nth-of-type(9)'
+     fecha_emision: 'td:nth-of-type(10)'
+     fecha_conclusion: 'td:nth-of-type(11)'
+     fecha_publicacion: 'td:nth-of-type(12) '
+     link_ficha_resumen: 'td:nth-of-type(13) a'
+     link_informe: 'td:nth-of-type(13) a'
+     recomendaciones: 'td:nth-of-type(15)'
+
