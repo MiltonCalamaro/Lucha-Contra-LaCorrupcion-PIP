@@ -13,7 +13,7 @@ def config():
 	return __config
 
 def config_option(option):
-    # option.add_argument("--headless")
+    option.add_argument("--headless")
     option.add_argument('--no-sandbox') 
     option.add_argument('--disable-dev-shm-usage')
     return option

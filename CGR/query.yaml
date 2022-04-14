@@ -1,6 +1,6 @@
 query_search:
   filters:
-    penal: "//*[@id='F013-08']/parent::*"
+    # covid: "//*[@id='F013-08']/parent::*"
     # penal: "//*[@id='F001-0503']/parent::*"
     # civil: "//*[@id='F001-0502']/parent::*"
   # fecha_desde: "//*[@id='dtpFechaInicio']/parent::*"
@@ -9,7 +9,6 @@ query_search:
   option_100: "//*[@id='listaCantidadRegistros']/option[4]"
   siguiente: "//*[@id='Li_Siguiente']"
   total_registros: "//*[@id='lbltotalItems']"
-
 
 query_table:
   table: '#tablaResultadosUltimosInformes tbody tr'
