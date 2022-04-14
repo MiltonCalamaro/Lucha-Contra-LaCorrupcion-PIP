@@ -30,7 +30,7 @@ def config():
 
 def create_driver():
     option = webdriver.ChromeOptions()
-    # option.add_argument("--headless")
+    option.add_argument("--headless")
     option.add_argument("--host-resolver-rules=MAP www.google-analytics.com 127.0.0.1")
     option.add_argument('user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36')
     s = Service(ChromeDriverManager().install())

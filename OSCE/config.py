@@ -40,13 +40,14 @@ URL_ENTIDAD_CONTRATANTE = 'https://tinyurl.com/CONOSCEENTIDADCONTRATANTE'
 PATH_ENTIDAD_CONTRATANTE = join(PATH_OUTPUT, 'entidad_contratante')
 os.makedirs(PATH_ENTIDAD_CONTRATANTE, exist_ok=True)
 
-# https://tinyurl.com/CONOSCEPENALIDADES
-# https://tinyurl.com/CONOSCEPENALIDADES20182020
+URL_PENALIDAD = 'https://tinyurl.com/CONOSCEPENALIDADES'
+URL_PENALIDAD_2018_2022 = 'https://tinyurl.com/CONOSCEPENALIDADES20182020'
+URL_SANCIONADO = 'https://tinyurl.com/CONOSCESANCIONADOS'
+URL_SANCIONADO_MULTA = 'https://tinyurl.com/CONOSCESANCIONADOSMULTA'
+URL_INHABILITACION = 'https://tinyurl.com/CONOSCEINHABILITAJUDICIAL'
+PATH_INFRACION_PROVEEDOR = join(PATH_OUTPUT, 'infraccion_proveedor')
+os.makedirs(PATH_INFRACION_PROVEEDOR, exist_ok=True)
 
-# https://tinyurl.com/CONOSCESANCIONADOS
-# https://tinyurl.com/CONOSCESANCIONADOSMULTA
-
-# https://tinyurl.com/CONOSCEINHABILITAJUDICIAL
 
 # PLAN_ANUAL_CONTRATACIONES = 'https://bi.seace.gob.pe/pentaho/api/repos/%3Apublic%3Aportal%3Adatosabiertospac.html/content?userid=public&password=key'
 # DATOS_CONVOCATORIAS = 'https://bi.seace.gob.pe/pentaho/api/repos/%3Apublic%3Aportal%3Adatosabiertosconvocatorias.html/content?userid=public&password=key'
