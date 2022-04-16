@@ -34,10 +34,14 @@ def main():
     ### configurar pool multiprocessing
     n_pool = args.pool
     pool = Pool(n_pool)
+    if args.last:
+        list_response = ApiDatosAbiertos(args.region, count = 1000).list_response
+        save_json(list_response, filename=f'datos_abiertos_{args.region.lower()}_last.json')
 
-    ### obtener pip con la api de datos abiertos
-    list_response = ApiDatosAbiertos(args.region).list_response
-    save_json(list_response, filename=f'datos_abiertos_{args.region}.json')
+    else:
+        ### obtener pip con la api de datos abiertos
+        list_response = ApiDatosAbiertos(args.region).list_response
+        save_json(list_response, filename=f'datos_abiertos_{args.region.lower()}.json')
     
     ### handling list_cui_pool
     list_cui = [str(int(i['CODIGO_UNICO'])) for i in list_response]
@@ -66,7 +70,11 @@ def main():
     result = extraction_mef.data
     extraction_mef_data.extend(result)
     ### save data del ssi
-    save_json(extraction_mef_data, filename=f'ssi_{args.region}.json')
+    if args.last:
+        save_json(extraction_mef_data, filename=f'ssi_{args.region.lower()}_last.json')
+    else:
+        save_json(extraction_mef_data, filename=f'ssi_{args.region.lower()}.json')
+
 
 if __name__ == '__main__':
 
@@ -75,19 +83,21 @@ if __name__ == '__main__':
     parser.add_argument('--region',
                         dest = 'region',
                         help = 'indicar la region a extraer',
-                        choices = REGION_LIST,
-                        )
-
+                        choices = REGION_LIST)
     parser.add_argument('--driver',
                         dest = 'driver',
                         help = 'indicar el tipo de driver',
                         choices = ['firefox','chrome'],
-                        )
+                        default = 'firefox')
     parser.add_argument('--pool',
                         dest = 'pool',
                         help='indicar el numeros de hilos multiprocesos a ejecutar',
                         type = int,
-                        default=10)
+                        default=16)
+    parser.add_argument('--last',
+                        dest = 'last',
+                        help = 'extraer los ultimos pip publicados',
+                        action = 'store_true')
 
     args = parser.parse_args()
     main()

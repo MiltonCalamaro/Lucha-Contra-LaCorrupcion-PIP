@@ -1,4 +1,7 @@
 import os
+EXECUTABLE_PATH_GECKODRIVER='/usr/local/bin/geckodriver'
+EXECUTABLE_PATH_CHROMEDRIVER='D://chromedriver.exe'
+
 ### urls 
 URL_RUC = 'https://e-consultaruc.sunat.gob.pe/cl-ti-itmrconsruc/jcrS00Alias'
 URL_RUC_API = 'https://ruc.com.pe/api/v1/consultas'

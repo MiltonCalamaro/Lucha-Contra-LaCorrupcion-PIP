@@ -6,15 +6,13 @@ from extraction import SeleniumRuc, RucApi
 from utils import create_driver, save_json
 from multiprocessing.dummy import Pool
 import warnings as w
-
 w.filterwarnings('ignore')
-#  python .\runner.py --ruc .\test.json -m api
-#  python .\runner.py --ruc .\test.json -m scraper
+
 
 class TestSeleniumRUC(unittest.TestCase):
     def setUp(self) -> None:
-        self.driver = create_driver()
-        self.driver.implicitly_wait(15)
+        self.driver = create_driver(args.driver)
+        self.driver.implicitly_wait(30)
         self.driver.maximize_window()
 
     def tearDown(self) -> None:
@@ -23,7 +21,6 @@ class TestSeleniumRUC(unittest.TestCase):
     def test_selenium_ruc(self):
         browser = self.driver
         selenium_ruc = SeleniumRuc(browser, list_ruc)
-        
         save_json(selenium_ruc.data)
 
 def parse_args():
@@ -35,6 +32,12 @@ def parse_args():
     parser.add_argument('--method', '-m',
                         dest = 'method',
                         choices=['scraper','api'])
+
+    parser.add_argument('--driver',
+                        dest = 'driver',
+                        help = 'indicar el driver a utilizar',
+                        choices=['firefox','chrome'],
+                        default='firefox')
 
     ns, args = parser.parse_known_args(namespace=unittest)
     return ns, sys.argv[:1] + args

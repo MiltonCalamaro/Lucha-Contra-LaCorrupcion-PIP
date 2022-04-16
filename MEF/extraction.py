@@ -11,11 +11,12 @@ config_yaml = config()
 
 class ApiDatosAbiertos:
 
-    def __init__(self, region):
+    def __init__(self, region, count=None):
         '''
         parameters
            region(str): indica el nombre de la region choices(CUSCO,LAMBAYEQUE,LORETO,LIMA,PIURA) 
         '''
+        self.count = count
         self.list_response = []
         self.params = params
         self.region = region
@@ -48,8 +49,11 @@ class ApiDatosAbiertos:
             ### cuando se llega al limite de las consultas
             logger.info(f'Se extrajeron {len(self.list_response)} proyectos de inversion')
             return None
+
         self.list_response.extend(records)
         logger.info(f'uploads {len(records)} records')
+        if self.count and len(self.list_response) >= self.count:
+            return None
 
         ### agregar next_url
         links = response['result']['_links']

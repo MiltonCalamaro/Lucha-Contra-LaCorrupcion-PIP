@@ -1,15 +1,27 @@
 import subprocess
 ### MEF, diseñar la extracion de los ultimos proyectos
-subprocess.run(['python','runner.py','--region','CUSCO','--driver','firefox','--pool','16'], cwd = 'MEF')
-subprocess.run(['python','runner.py','--region','LAMBAYEQUE','--driver','firefox','--pool','16'], cwd = 'MEF')
-subprocess.run(['python','runner.py','--region','LORETO','--driver','firefox','--pool','16'], cwd = 'MEF')
-subprocess.run(['python','runner.py','--region','LIMA','--driver','firefox','--pool','16'], cwd = 'MEF')
-subprocess.run(['python','runner.py','--region','PIURA','--driver','firefox','--pool','16'], cwd = 'MEF')
-### CGR, diseñar las extraction de los ultimos y configurado por fechas
-subprocess.run(['python','runner.py','--driver','firefox'], cwd = 'CGR')
-### OSCE
+### Utilizando driver firefox
+for region in ['CUSCO','LAMBAYEQUE','LORETO','LIMA','PIURA']:
+    subprocess.run(['python', 'runner.py', '--region', region ], cwd = 'MEF')
+
+### CGR OK
+### Utilizando driver firefox
+subprocess.run(['python','runner.py','--since','2017-01-01'], cwd = 'CGR')
+### Utilizando driver firefox
+subprocess.run(['python','runner.py','--last'], cwd = 'CGR')
+
+### OSCE OK
+### Descargando archivos de la pagina OSCE
 subprocess.run(['python','extraction.py','--annios',"2018 2019 2020 2021 2022"], cwd = 'OSCE')
-### TRANSPARENCIA, falta lo de congresistas
-subprocess.run(['python','runner.py','--driver','firefox','--since','2017-01-01','--pool','16'], cwd = 'VISITAS')
-### RUC
+
+### TRANSPARENCIA OK
+### Utilizando driver firefox
+subprocess.run(['python','runner.py', '--poder', 'presidencia', '--since', '2012-01-01'], cwd = 'VISITAS')
+### Utilizando beautilfulSoup
+subprocess.run(['python','runner.py', '--poder', 'presidencia', '--last'], cwd = 'VISITAS')
+### Utilizando API
+subprocess.run(['python','runner.py', '--poder', 'congreso', '--since', '2012-01-01'], cwd = 'VISITAS')
+### Utilizando API
+subprocess.run(['python','runner.py', '--poder', 'congreso', '--last'], cwd = 'VISITAS')
+### SUNAT
 #  python .\runner.py --ruc .\test.json -m scraper

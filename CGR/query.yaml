@@ -5,10 +5,13 @@ query_search:
     # civil: "//*[@id='F001-0502']/parent::*"
   # fecha_desde: "//*[@id='dtpFechaInicio']/parent::*"
   # buscar: "//*[@id='btn-date']/parent::*"
+  fecha_desde: '#dtpFechaInicio'
+  fecha_hasta: '#dtpFechaHasta'
+  buscar: '#btn-date'
   combo_box: "//*[@id='listaCantidadRegistros']"
   option_100: "//*[@id='listaCantidadRegistros']/option[4]"
-  siguiente: "//*[@id='Li_Siguiente']"
   total_registros: "//*[@id='lbltotalItems']"
+  siguiente: "//*[@id='Li_Siguiente']"
 
 query_table:
   table: '#tablaResultadosUltimosInformes tbody tr'
