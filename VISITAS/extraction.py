@@ -53,7 +53,6 @@ class VisitaPresidencia:
         response = requests.get(URL_PRESIDENCIA, headers=HEADERS)
         if response.status_code==200:
             self.html = BeautifulSoup(response.content, 'html.parser')
-            self.get_fields()
         else:
             logger.info('error status_code not equal 200')
             
@@ -129,7 +128,6 @@ class SeleniumVisitas:
             if number_register and regex.search(number_register.text):
                 number_register = regex.search(number_register.text).group(1)
                 visita_presidencia = VisitaPresidencia(html)
-                visita_presidencia.get_fields()
                 visita_presidencia = visita_presidencia.data
                 logger.info(f'{str_since} | registro total {number_register} ,  scrapeados {len(visita_presidencia)}')      
 

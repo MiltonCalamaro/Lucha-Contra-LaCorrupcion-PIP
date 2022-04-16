@@ -1,12 +1,12 @@
-import unittest
 import sys
 import argparse
 import datetime as dt
 import math
+import logging
+from multiprocessing.dummy import Pool
 from utils import create_driver, save_json
 from config import END_DATE
 from extraction import SeleniumVisitas, VisitaPresidencia, VisitaCongreso
-from multiprocessing.dummy import Pool
 
 class TestVisitas:
     def __init__(self, **args):
@@ -31,11 +31,12 @@ def dividir_fecha_presidencia(since, until, salto_days):
     list_dict_fecha = []
     for i in range(0, args.pool+1):
         until_pool = since + dt.timedelta(days=salto_days)
-        if until_pool>until:
+        if until_pool>=until:
             until_pool = until
-            
         dict_fecha = {'since': since.strftime('%Y-%m-%d'),
                       'until': until_pool.strftime('%Y-%m-%d')}
+        if since >=until:
+            break
         list_dict_fecha.append(dict_fecha)
         since = until_pool  + dt.timedelta(days=1)
     return list_dict_fecha
@@ -96,8 +97,12 @@ def main():
         until = dt.datetime.strptime(until, '%Y-%m-%d')
         num_days = (until - since).days
         salto_days = math.floor(num_days/pool_size)
-        list_fecha = dividir_fecha_presidencia(since, until, salto_days)
+        if salto_days == 0:
+            salto_days = 1
 
+        list_fecha = dividir_fecha_presidencia(since, until, salto_days)
+        logging.info(list_fecha)
+        
         list_data = []
         for visitas in pool.map(get_visitas, list_fecha):
             if visitas:

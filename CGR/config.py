@@ -4,7 +4,7 @@ import datetime as dt
 URL_CGR = 'https://appbp.contraloria.gob.pe/BuscadorCGR/Informes/Avanzado.html#'
 
 timezone = pytz.timezone('America/Lima')
-day_before = 2
+day_before = 7
 START_DATE = (dt.datetime.now(timezone) - dt.timedelta(days=day_before)).strftime('%d/%m/%Y')
 END_DATE = dt.datetime.now(timezone).strftime('%d/%m/%Y')
 
