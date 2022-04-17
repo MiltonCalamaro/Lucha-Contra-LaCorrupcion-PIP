@@ -71,10 +71,6 @@ class SeleniumCGR:
     def _add_filters(self):
         for xpath in (self.QUERY_SEARCH['filters'] or []):
             self._click_element(self.QUERY_SEARCH['filters'][xpath])
-        # fecha_desde = self.browser.find_element(by = By.XPATH, value = self.QUERY_SEARCH['fecha_desde'])
-        # fecha_desde.send_keys(START_DATE)
-        # buscar = self.browser.find_element(by = By.XPATH, value =  self.QUERY_SEARCH['buscar'])
-        # buscar.click()
 
     def _search_by_date(self):
         fecha_desde = self.browser.find_element(by = By.CSS_SELECTOR, value = self.QUERY_SEARCH['fecha_desde'])

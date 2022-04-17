@@ -97,7 +97,7 @@ class SeleniumVisitas:
             str_since  = self.since.strftime('%Y-%m-%d')
             show_calendary = self.browser.find_element(by=By.XPATH, value=self.QUERY_SEARCH['show_calendary'])
             show_calendary.send_keys('')
-            time.sleep(1)
+            time.sleep(1.5)
             
             since_year = str(self.since.year)
             since_month = DICT_MONTH[str(self.since.month)]

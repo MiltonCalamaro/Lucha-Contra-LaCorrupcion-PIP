@@ -122,7 +122,7 @@ if __name__=='__main__':
                         dest = 'pool',
                         help = 'indicar el numero de pool a utilizar',
                         type=int,
-                        default=16)
+                        default=8)
 
     parser.add_argument('--since','-s',
                         dest = 'since',

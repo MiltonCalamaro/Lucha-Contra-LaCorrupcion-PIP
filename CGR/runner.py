@@ -29,7 +29,7 @@ class TestCGR:
         selenium_cgr = SeleniumCGR(browser, **args)
         self.data = selenium_cgr.data
 
-def get_dict_fecha(since, until):
+def get_dict_fecha(since, until, salto_days):
     list_dict_fecha = []
     if since < dt.datetime(2018, 12, 31):
         dict_fecha = {'since': since.strftime('%d/%m/%Y'),
@@ -37,7 +37,6 @@ def get_dict_fecha(since, until):
         list_dict_fecha.append(dict_fecha)
         since = dt.datetime(2019, 1, 1)
         
-    salto_days = 15
     until_pool = since
     sw = True
     while sw:
@@ -69,8 +68,8 @@ def main():
     since = args.since
     since = dt.datetime.strptime(since, '%Y-%m-%d')
     until = dt.datetime.strptime(END_DATE, '%d/%m/%Y')
-
-    list_dict_fecha = get_dict_fecha(since,until)
+    salto_days = 15
+    list_dict_fecha = get_dict_fecha(since,until, salto_days)
     logging.info(list_dict_fecha)
 
     list_data = []
@@ -94,7 +93,7 @@ if __name__=='__main__':
                         dest = 'pool',
                         help='indicar los nro de pool para el multiprocesamiento',
                         type = int,
-                        default = 16)
+                        default = 8)
     parser.add_argument('--last',
                         dest = 'last',
                         help = 'activar la opcion de extraer los ultimos',

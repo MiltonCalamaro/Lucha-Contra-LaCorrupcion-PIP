@@ -93,7 +93,7 @@ if __name__ == '__main__':
                         dest = 'pool',
                         help='indicar el numeros de hilos multiprocesos a ejecutar',
                         type = int,
-                        default=16)
+                        default=8)
     parser.add_argument('--last',
                         dest = 'last',
                         help = 'extraer los ultimos pip publicados',
