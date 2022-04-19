@@ -21,7 +21,11 @@ class ApiDatosAbiertos:
         self.params = params
         self.region = region
         # self.q = QUERY_PROYECTO[self.region]
-        self.q = QUERY_PROYECTO.format(region=self.region)
+        if self.region=='TODO':
+            self.q = ''
+        else:
+            self.q = QUERY_PROYECTO.format(region=self.region)
+        
         self.get_response(next_token=None)
 
     def get_response(self, next_token=None):

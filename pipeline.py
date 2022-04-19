@@ -19,11 +19,11 @@ subprocess.run(['python','runner.py','--last'], cwd = 'CGR')
 ### OSCE OK
 ## Descargando archivos de la pagina OSCE
 subprocess.run(['python','extraction.py','--annios',"2018 2019 2020 2021 2022"], cwd = 'OSCE')
+subprocess.run(['python','extraction.py','--annios',"2022"], cwd = 'OSCE')
 
 ### MEF, diseñar la extracion de los ultimos proyectos
 ### Utilizando driver firefox
-for region in ['CUSCO','LAMBAYEQUE','LORETO','LIMA','PIURA']:
-    subprocess.run(['python', 'runner.py', '--region', region], cwd = 'MEF')
-    subprocess.run(['python', 'runner.py', '--region', region, '--last' ], cwd = 'MEF')
+subprocess.run(['python', 'runner.py', '--region', 'TODO', '--all'], cwd = 'MEF')
+subprocess.run(['python', 'runner.py', '--region', 'TODO', '--last'], cwd = 'MEF')
 ### SUNAT
 #  python .\runner.py --ruc .\test.json -m scraper

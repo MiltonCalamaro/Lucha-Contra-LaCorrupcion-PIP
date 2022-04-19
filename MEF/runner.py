@@ -1,11 +1,8 @@
-import unittest
 import argparse
-import sys
-import json
 from multiprocessing.dummy import Pool
 import time
 import pandas as pd
-from utils import create_driver, save_json
+from utils import create_driver, save_json, load_json
 from config import REGION_LIST
 from extraction import SeleniumSSI, ApiDatosAbiertos
 import warnings as w
@@ -34,17 +31,19 @@ def main():
     ### configurar pool multiprocessing
     n_pool = args.pool
     pool = Pool(n_pool)
+    ### obtener pip con la api de datos abiertos
     if args.last:
         list_response = ApiDatosAbiertos(args.region, count = 1000).list_response
-        save_json(list_response, filename=f'datos_abiertos_{args.region.lower()}_last.json')
+        filename = f'pip_{args.region.lower()}_last.json'
+        save_json(list_response, filename=filename)
 
-    else:
-        ### obtener pip con la api de datos abiertos
+    if args.all:
         list_response = ApiDatosAbiertos(args.region).list_response
-        save_json(list_response, filename=f'datos_abiertos_{args.region.lower()}.json')
+        filename = f'pip_{args.region.lower()}.json'
+        save_json(list_response, filename=filename)
     
     ### handling list_cui_pool
-    list_cui = [str(int(i['CODIGO_UNICO'])) for i in list_response]
+    list_cui = [str(int(i['CODIGO_UNICO'])) for i in list_response if i['CODIGO_UNICO']]
     list_cui_pool = []
     salto = len(list_cui)//n_pool
     for i in range(0, len(list_cui), salto):
@@ -69,21 +68,26 @@ def main():
     extraction_mef = ExtractionMEF(cui_faltante)
     result = extraction_mef.data
     extraction_mef_data.extend(result)
-    ### save data del ssi
-    if args.last:
-        save_json(extraction_mef_data, filename=f'ssi_{args.region.lower()}_last.json')
-    else:
-        save_json(extraction_mef_data, filename=f'ssi_{args.region.lower()}.json')
 
+    ### save data del ssi
+    data = load_json(filename = filename)
+    data_pip = {'datos_abiertos': data, 'ssi': extraction_mef_data}
+    save_json(data_pip, filename = filename)
 
 if __name__ == '__main__':
-
     parser = argparse.ArgumentParser()
-
     parser.add_argument('--region',
                         dest = 'region',
                         help = 'indicar la region a extraer',
                         choices = REGION_LIST)
+    parser.add_argument('--last',
+                        dest = 'last',
+                        help = 'extraer los ultimos pip publicados',
+                        action = 'store_true')
+    parser.add_argument('--all',
+                        dest = 'all',
+                        help = 'extraer todos los pip publicados desde el 2002',
+                        action = 'store_true')
     parser.add_argument('--driver',
                         dest = 'driver',
                         help = 'indicar el tipo de driver',
@@ -91,14 +95,9 @@ if __name__ == '__main__':
                         default = 'firefox')
     parser.add_argument('--pool',
                         dest = 'pool',
-                        help='indicar el numeros de hilos multiprocesos a ejecutar',
+                        help='indicar los numeros de hilos a utilizar',
                         type = int,
                         default=8)
-    parser.add_argument('--last',
-                        dest = 'last',
-                        help = 'extraer los ultimos pip publicados',
-                        action = 'store_true')
-
     args = parser.parse_args()
     main()
 

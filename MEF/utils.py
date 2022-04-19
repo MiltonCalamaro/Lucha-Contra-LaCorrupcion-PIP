@@ -44,3 +44,9 @@ def get_logger(name):
 def save_json(data, filename=FILENAME_OUTPUT):
     with open(f"{PATH_OUTPUT}/{filename}", mode='w', encoding='utf-8') as f:
         json.dump(data, f)
+
+
+def load_json(filename = FILENAME_OUTPUT):
+    with open(f"{PATH_OUTPUT}/{filename}", mode='r', encoding='utf-8') as f:
+        data = json.load(f)
+    return data

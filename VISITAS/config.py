@@ -24,3 +24,5 @@ DICT_MONTH = {'1':'Ene','2':'Feb','3':'Mar', '4':'Abr', '5':'May', '6':'Jun','7'
 
 user_agent  = UserAgent().chrome
 HEADERS = {'headers':user_agent}
+
+SALTO_DAYS_CONGRESO = 30

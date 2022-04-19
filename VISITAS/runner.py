@@ -5,7 +5,7 @@ import math
 import logging
 from multiprocessing.dummy import Pool
 from utils import create_driver, save_json
-from config import END_DATE
+from config import END_DATE, SALTO_DAYS_CONGRESO
 from extraction import SeleniumVisitas, VisitaPresidencia, VisitaCongreso
 
 class TestVisitas:
@@ -72,9 +72,8 @@ def main():
 
         since = dt.datetime.strptime(since, '%Y-%m-%d')
         until = dt.datetime.strptime(until, '%Y-%m-%d')
-        salto_days = 30
 
-        list_fecha = dividir_fecha_congreso(since, until, salto_days)
+        list_fecha = dividir_fecha_congreso(since, until, SALTO_DAYS_CONGRESO)
         list_data = []
         for dict_fecha in list_fecha:
             visita_congreso = VisitaCongreso(**dict_fecha)
@@ -112,37 +111,31 @@ def main():
 
 if __name__=='__main__':
     parser = argparse.ArgumentParser()
+    parser.add_argument('--poder',
+                        dest='poder',
+                        help='indicar el poder del estado a extraer sus visitas',
+                        choices=['congreso','presidencia'])
+    parser.add_argument('--since',
+                        dest = 'since',
+                        help = 'indicar la fecha de inicio para la extraccion, ejm 2022-05-01')
+    parser.add_argument('--until',
+                        dest = 'until',
+                        help = 'indicar la fecha fin para la extraccion, ejm 2022-05-05',
+                        default = END_DATE)
+    parser.add_argument('--last',
+                        dest='last',
+                        help='extraer lo ultimo',
+                        action='store_true')
     parser.add_argument('--driver',
                         dest = 'driver',
                         help = 'indicar el driver a utilizar',
                         choices = ['firefox','chrome'],
                         default = 'firefox')
-
     parser.add_argument('--pool',
                         dest = 'pool',
                         help = 'indicar el numero de pool a utilizar',
                         type=int,
                         default=8)
-
-    parser.add_argument('--since','-s',
-                        dest = 'since',
-                        help = 'indicar la fecha de inicio para la extraccion, ejm 2022-05-01')
-
-    parser.add_argument('--until', '-u',
-                        dest = 'until',
-                        help = 'indicar la fecha fin para la extraccion, ejm 2022-05-05',
-                        default = END_DATE)
-
-    parser.add_argument('--last',
-                        dest='last',
-                        help='extraer lo ultimo',
-                        action='store_true')
-
-    parser.add_argument('--poder',
-                        dest='poder',
-                        help='indicar el poder del estado a extraer sus visitas',
-                        choices=['congreso','presidencia'])
-
     args = parser.parse_args()
     main()
 

@@ -4,7 +4,7 @@ import datetime as dt
 URL_CGR = 'https://appbp.contraloria.gob.pe/BuscadorCGR/Informes/Avanzado.html#'
 
 timezone = pytz.timezone('America/Lima')
-day_before = 7
+day_before = 2
 START_DATE = (dt.datetime.now(timezone) - dt.timedelta(days=day_before)).strftime('%d/%m/%Y')
 END_DATE = dt.datetime.now(timezone).strftime('%d/%m/%Y')
 
@@ -15,6 +15,7 @@ PATH_OUTPUT = 'results'
 os.makedirs(PATH_OUTPUT, exist_ok=True)
 FILENAME_OUTPUT = 'cgr_data.json'
 
+SALTO_DAYS = 15
 
 # list_dict_fecha = [ {'since': '01/01/2017', 'until': '23/04/2019'},
 #                     {'since': '24/04/2019', 'until': '30/05/2019'},
