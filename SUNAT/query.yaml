@@ -6,6 +6,7 @@ query_search:
   regresar: '/html/body/div/div[2]/div/div[2]/button'
 query_info:
   check_ruc: ':-soup-contains("Número de RUC")'
+  tipo_documento: "//*[contains(text(), 'Tipo de Documento')]/parent::*/following-sibling::*"
   fields:
     nro_ruc: "//*[contains(text(), 'Número de RUC')]/parent::*/following-sibling::*"
     tipo_contribuyente: "//*[contains(text(), 'Tipo Contribuyente')]/parent::*/following-sibling::*"

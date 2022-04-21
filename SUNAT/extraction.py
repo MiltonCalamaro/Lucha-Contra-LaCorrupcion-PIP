@@ -132,12 +132,17 @@ class SeleniumRuc:
                 dict_data  = RucScrapy(self.browser).data
                 if not dict_data:
                     continue
-                time.sleep(5)
-                ### get representantes legales
-                logger.info('Representante(s) Legal(es)')
-                r_legales = RLegales(self.browser).list_data
-                ### add representantes legales
-                dict_data['r_legales'] = r_legales
+                    # self.search_browser
+                if dict_data and ruc[0] =='1':
+                    tipo_documento = self.browser.find_element(by=By.XPATH, value=self.QUERY_SEARCH['tipo_documento'])
+                    dict_data['tipo_documento'] = tipo_documento.text
+                # if dict_data and ruc[0] =='2':
+                #     time.sleep(5)
+                #     ### get representantes legales
+                #     logger.info('Representante(s) Legal(es)')
+                #     r_legales = RLegales(self.browser).list_data
+                #     ### add representantes legales
+                #     dict_data['r_legales'] = r_legales
                 self.data.append(dict_data)
                 ### return homepage
                 # button_regresar = self.browser.find_element(by=By.XPATH, value=self.QUERY_SEARCH['regresar'])
