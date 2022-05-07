@@ -36,10 +36,10 @@ class RucApi:
 class RucScrapy:
     QUERY_INFO = config_yaml['query_info']
 
-    def __init__(self, browser):
+    def __init__(self, browser, ruc):
         self.data = {}
         self.browser = browser
-        self.get_features()
+        self.get_features(ruc)
 
     def _get_html(self):
         html = BeautifulSoup(self.browser.page_source, 'html.parser')
@@ -50,13 +50,15 @@ class RucScrapy:
         elem = elem.text
         return elem
 
-    def get_features(self):
+    def get_features(self, ruc):
         html = self._get_html()
         if not html.select_one(self.QUERY_INFO['check_ruc']):
             logger.warning('No existe Número de RUC')
             return None
 
         for xpath in  self.QUERY_INFO['fields']:
+            if ruc[0]=='2' and xpath=='tipo_documento':
+                continue
             elem = self._find_element(self.QUERY_INFO['fields'][xpath])
             self.data[xpath] = elem
 
@@ -98,10 +100,11 @@ class RLegales:
             dict_data = {}
             ## iterar por cada selector para extraer del registro
             for selector in self.QUERY_RLEGALES['fields']:
-                dict_data[selector] = self._find_element(table_tr, self.QUERY_RLEGALES['fields'][selector])
+                dict_data[selector] = self._find_element(table_tr, config_yaml['fields'][selector])
             self.list_data.append(dict_data)
 
 class SeleniumRuc:
+    MAX_ATTEMPS = 3
     QUERY_SEARCH  = config_yaml['query_search']
     
     def __init__(self, browser, list_ruc):
@@ -109,33 +112,39 @@ class SeleniumRuc:
         self.browser = browser
         self.search_browser(list_ruc)
 
+    def _consulta_ruc(self, ruc):
+        ### ingresar url
+        self.browser.get(URL_RUC)
+        time.sleep(5)
+        ### input ruc
+        logger.info(f'{"#"*50}')
+        logger.info('Ingresar RUC {ruc}'.format(ruc=ruc))
+        input_ruc = self.browser.find_element(by=By.XPATH, value=self.QUERY_SEARCH['input'])
+        input_ruc.send_keys(ruc)
+        time.sleep(5)
+        ### search ruc
+        logger.info('Buscar RUC')
+        button_buscar = self.browser.find_element(by=By.XPATH, value=self.QUERY_SEARCH['buscar'])
+        button_buscar.click()
+        time.sleep(5)
+        ### get features ruc
+        logger.info('Obtener datos RUC')
+        dict_data  = RucScrapy(self.browser, ruc).data
+        return dict_data
+
     def search_browser(self, list_ruc):
         logger.info('STARTING SCRAPER RUC')
         for ruc in tqdm(list_ruc):
             try:
-                ### ingresar url
-                self.browser.get(URL_RUC)
-                time.sleep(5)
-                ### input ruc
-                logger.info(f'{"#"*50}')
-                logger.info('Ingresar RUC {ruc}'.format(ruc=ruc))
-                input_ruc = self.browser.find_element(by=By.XPATH, value=self.QUERY_SEARCH['input'])
-                input_ruc.send_keys(ruc)
-                time.sleep(5)
-                ### search ruc
-                logger.info('Buscar RUC')
-                button_buscar = self.browser.find_element(by=By.XPATH, value=self.QUERY_SEARCH['buscar'])
-                button_buscar.click()
-                time.sleep(5)
-                ### get features ruc
-                logger.info('Obtener datos RUC')
-                dict_data  = RucScrapy(self.browser).data
+                for i in range(0, self.MAX_ATTEMPS):
+                    dict_data = self._consulta_ruc(ruc)
+                    if dict_data:
+                        break
                 if not dict_data:
                     continue
-                    # self.search_browser
-                if dict_data and ruc[0] =='1':
-                    tipo_documento = self.browser.find_element(by=By.XPATH, value=self.QUERY_SEARCH['tipo_documento'])
-                    dict_data['tipo_documento'] = tipo_documento.text
+                # if dict_data and ruc[0] =='1':
+                    # tipo_documento = self.browser.find_element(by=By.XPATH, value=self.QUERY_SEARCH['tipo_documento'])
+                    # dict_data['tipo_documento'] = tipo_documento.text
                 # if dict_data and ruc[0] =='2':
                 #     time.sleep(5)
                 #     ### get representantes legales
@@ -144,11 +153,8 @@ class SeleniumRuc:
                 #     ### add representantes legales
                 #     dict_data['r_legales'] = r_legales
                 self.data.append(dict_data)
-                ### return homepage
-                # button_regresar = self.browser.find_element(by=By.XPATH, value=self.QUERY_SEARCH['regresar'])
-                # button_regresar.click()
             except Exception as e:
-                logger.warning(f'error in {ruc}')
+                logger.warning(f'error in {ruc}, {e}')
                 pass
         logger.info('FINISHING SCRAPER RUC')
 

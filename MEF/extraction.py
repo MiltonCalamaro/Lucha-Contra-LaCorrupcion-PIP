@@ -23,6 +23,7 @@ class ApiDatosAbiertos:
         # self.q = QUERY_PROYECTO[self.region]
         if self.region=='TODO':
             self.q = ''
+            self.params['limit'] = 10000
         else:
             self.q = QUERY_PROYECTO.format(region=self.region)
         

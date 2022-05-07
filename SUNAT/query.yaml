@@ -6,10 +6,10 @@ query_search:
   regresar: '/html/body/div/div[2]/div/div[2]/button'
 query_info:
   check_ruc: ':-soup-contains("Número de RUC")'
-  tipo_documento: "//*[contains(text(), 'Tipo de Documento')]/parent::*/following-sibling::*"
   fields:
     nro_ruc: "//*[contains(text(), 'Número de RUC')]/parent::*/following-sibling::*"
     tipo_contribuyente: "//*[contains(text(), 'Tipo Contribuyente')]/parent::*/following-sibling::*"
+    tipo_documento: "//*[contains(text(), 'Tipo de Documento')]/parent::*/following-sibling::*"
     nombre_comercial: "//*[contains(text(), 'Nombre Comercial')]/parent::*/following-sibling::*"
     fecha_inscripcion: "//*[contains(text(), 'Fecha de Inscripción')]/parent::*/following-sibling::div[1]/p"
     fecha_inicio: "//*[contains(text(), 'Fecha de Inicio de Actividades')]/parent::*/following-sibling::div[1]/p"
@@ -18,7 +18,7 @@ query_info:
     domicilio_fiscal: "//*[contains(text(), 'Domicilio Fiscal')]/parent::*/following-sibling::*"
     emision_comprobante: "//*[contains(text(), 'Sistema Emisión de Comprobante')]/parent::*/following-sibling::div[1]"
     comercio_exterior: "//*[contains(text(), 'Actividad Comercio Exterior')]/parent::*/following-sibling::div[1]"
-    sistema_contabilidad: "//*[contains(text(), 'Sistema Contabilidiad')]/parent::*/following-sibling::*"
+    sistema_contabilidad: "//*[contains(text(), 'Sistema Contabilidad')]/parent::*/following-sibling::*"
     actividad_economica: "//*[contains(text(), 'Actividad(es) Económica(s)')]/parent::*/following-sibling::*" ## //tr plural
     emision_electronica: "//*[contains(text(), 'Sistema de Emisión Electrónica')]/parent::*/following-sibling::*" ##//tr plural
     emisor_electronico: "//*[contains(text(), 'Emisor electrónico desde')]/parent::*/following-sibling::*"
