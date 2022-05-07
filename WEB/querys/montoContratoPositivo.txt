@@ -1,0 +1,10 @@
+select pv.CodPro,
+       round(avg((c.MonTotCto - t.MonRefConv)/t.MonRefConv), 3) as MontDiffPorc
+from v_proveedores_validos pv
+inner join tabla_adjudicacion ta on pv.CodCta = ta.CodCta
+inner join tabla_convocatoria t on ta.CodConv = t.CodConv
+inner join tabla_contrato c on ta.CodAdj = c.CodAdj
+where c.MonTotCto > t.MonRefConv
+and pv.CodPro = $$$RucContratista
+group by pv.CodPro
+order by pv.CodPro

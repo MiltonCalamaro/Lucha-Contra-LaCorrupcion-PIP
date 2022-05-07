@@ -1,0 +1,11 @@
+select vpv.CodCta,
+       vpv.NomCta,
+       vpv.RucCta,
+       AVG(DATEDIFF(STR_TO_DATE(ta.FecAdj, '%d/%m/%Y'), STR_TO_DATE(t.FecConv, '%d/%m/%Y'))) as AvgFecDiff,
+       MAX(DATEDIFF(STR_TO_DATE(ta.FecAdj, '%d/%m/%Y'), STR_TO_DATE(t.FecConv, '%d/%m/%Y'))) as MaxFecDiff,
+       MIN(DATEDIFF(STR_TO_DATE(ta.FecAdj, '%d/%m/%Y'), STR_TO_DATE(t.FecConv, '%d/%m/%Y'))) as MinFecDiff
+from v_proveedores_validos vpv 
+left join tabla_adjudicacion ta on vpv.CodCta = ta.CodCta
+left join tabla_convocatoria t on ta.CodConv = t.CodConv
+where RucCta  = $$$RucContratista
+group by vpv.NomCta, vpv.CodCta, vpv.RucCta

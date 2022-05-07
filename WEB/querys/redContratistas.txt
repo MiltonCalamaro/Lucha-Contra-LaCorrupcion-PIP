@@ -1,0 +1,26 @@
+with tmp_conformacion_societaria as (
+    select pv.CodPro,
+           pv.NomCta,
+           tcs.CodDocumento,
+           MAX(tcs.TipoDocumento) TipoDocumento,
+           MAX(tcs.NomMiembro) NomMiembro,
+           GROUP_CONCAT(tcs.TipoMiembro) TipoMiembroLista
+    from v_proveedores_validos pv
+    inner join tabla_conformacion_societaria tcs on pv.CodPro = tcs.CodPro
+    where pv.CodPro= $$$RucContratista
+    group by pv.CodPro, pv.NomCta, tcs.CodDocumento
+    order by pv.CodPro, tcs.CodDocumento
+)
+select tcs.CodPro,
+       tcs.TipoDocumento,
+       tcs.CodDocumento,
+       tcs.NomMiembro,
+       tcs.TipoMiembroLista,
+       tcs2.CodPro,
+       tcs2.TipoMiembroLista,
+       tp.RegPro
+from tmp_conformacion_societaria tcs
+inner join tmp_conformacion_societaria tcs2 on tcs.CodDocumento=tcs2.CodDocumento and
+                                                 tcs.CodPro <> tcs2.CodPro
+left join tabla_proveedor tp on tp.CodPro=tcs2.CodPro
+order by tcs.CodPro,tcs.CodDocumento, tcs.TipoMiembroLista

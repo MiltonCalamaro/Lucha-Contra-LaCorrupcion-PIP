@@ -1,0 +1,10 @@
+select pv.CodPro,
+       pv.NomCta,
+       tat.n_sancionTCE,
+       tat.n_penalidad,
+       tat.n_inhabilitacionXMandatoJudicial,
+       tat.n_inhabilitacion_administrativa
+from v_proveedores_validos pv
+inner join tabla_antecedentes_totales tat on pv.CodPro = tat.CodProd
+where pv.CodPro = $$$RucContratista
+
