@@ -2,11 +2,11 @@ import pandas as pd
 import mysql.connector as mysql
 
 def buscador_basico(CodPip, CodSnip, NomCta, CodCto, NomCte, MonTotCtoMin, MonTotCtoMax, FecIniCto, FecFinCto, NomSec, CodConv, NumeroResultado):
-    con = mysql.connect(host = 'db-dsrp-dev.cdykihpovon2.us-east-1.rds.amazonaws.com',
-                        port = '3306',
-                        user = 'admin',
-                        database = 'dsrp',
-                        password = 't8P2uEeRHsiDnCEDaaRE'
+    con = mysql.connect(host = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+                        port = 'XXXXXXXX',
+                        user = 'XXXXXXXXXX',
+                        database = 'XXXXXXXXX',
+                        password = 'XXXXXXXXX'
                     )
 
     NumeroResultado = int(NumeroResultado/2)

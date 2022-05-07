@@ -1,10 +1,10 @@
 #Configuration Values
 import pymysql
 def get_connection():
-    endpoint = 'db-dsrp-dev.cdykihpovon2.us-east-1.rds.amazonaws.com'
-    username = 'admin'
-    password = 't8P2uEeRHsiDnCEDaaRE'
-    database_name = 'dsrp'
+    endpoint = 'XXXXXXXXXXXXXXXXXXXXX'
+    username = 'XXXXX'
+    password = 'XXXXXXXXXXXXXX'
+    database_name = 'XXXXXX'
     #Connection
     connection = pymysql.connect(host=endpoint, user=username, passwd=password, db=database_name)
     return connection

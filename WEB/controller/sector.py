@@ -2,11 +2,11 @@ import mysql.connector as mysql
 import pandas as pd
 
 def query():
-    con = mysql.connect(host = 'db-dsrp-dev.cdykihpovon2.us-east-1.rds.amazonaws.com',
-                        port = '3306',
-                        user = 'admin',
-                        database = 'dsrp',
-                        password = 't8P2uEeRHsiDnCEDaaRE'
+    con = mysql.connect(host = 'XXXXXXXXXXXXX',
+                        port = 'XXXXX',
+                        user = 'XXXXXXX',
+                        database = 'XXXXXXXXXX',
+                        password = 'XXXXXXX'
                     )
 
     query_sector = """
